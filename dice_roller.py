@@ -29,9 +29,22 @@ def init_dice():
     dice_dict["d4"] = Die(4)
     return dice_dict
 
+dice = init_dice()
 
 def parse_input(input_str):
-    print(input_str)
+    input_str = input_str.upper()
+    input_str = input_str.split("+")
+    added_sum = 0
+    for die in input_str:
+        if die.count("D") < 1 and die.isdigit():
+            added_sum = added_sum+(int(die))
+            break
+        die = die.split('D')
+        try:
+            added_sum += dice['d'+die[1]].roll(int(die[0]))
+        except Exception as err:
+            print("Issue with input!")
+    print(added_sum)
     pass
 
 
@@ -43,6 +56,4 @@ def main_loop():
 
 
 
-
-dice = init_dice()
 main_loop()
